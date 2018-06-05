@@ -2,49 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class CarMovement : MonoBehaviour {
-    [SerializeField] private float _movementSpeed;
-    [SerializeField] private float _rotationSpeed;
+	[SerializeField]private float _accelerationSpeed;
+	[SerializeField]private float _rotationSpeed;
 
-    [SerializeField] private GameObject _wheels;
+	private Rigidbody2D _rb2d;
 
-    private float _rotationAngle;
-
-    private Vector2 _oldPostion;
-    private Vector2 _currentPostion;
-    // Update is called once per frame
-    void Update () {
-        float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
-        SetRotation(x, y);
-
-        Move(y);
-        
+	private void Start() {
+		_rb2d = GetComponent<Rigidbody2D> ();
 	}
 
-    private void SetRotation(float x , float y) {
-        Quaternion wheelRot = _wheels.transform.rotation;
+	private void FixedUpdate() {
+		float x = Input.GetAxis ("Horizontal");
+		float y = Input.GetAxis ("Vertical");
+		_rb2d.AddForce (y * transform.up * _accelerationSpeed);
+		_rb2d.AddTorque (-x * _rotationSpeed);
+	}
 
 
-        
-
-        if (y != 0) 
-        {
-            _rotationAngle += (-x) * _rotationSpeed * Time.deltaTime;
-            _wheels.transform.localEulerAngles = new Vector3(0, 0, _rotationAngle);
-            float angle = Mathf.LerpAngle(transform.localEulerAngles.z, transform.localEulerAngles.z + _wheels.transform.localEulerAngles.z, 0.5f);
-            transform.rotation = Quaternion.Euler(0, 0, angle);
-        }
-         
-        
-    }
-
-    private void Move(float y) {
-        _currentPostion = transform.position;
-        Vector2 pos = transform.position;
-        pos.x += (_movementSpeed * y * transform.up.x) * Time.deltaTime;
-        pos.y += (_movementSpeed * y * transform.up.y) * Time.deltaTime;
-        transform.position = pos;
-        _oldPostion = transform.position;
-    }
+		
 }
