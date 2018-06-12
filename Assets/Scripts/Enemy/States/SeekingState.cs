@@ -41,7 +41,7 @@ public class SeekingState : State {
         {
             PlayerMovement pm = col.GetComponent<PlayerMovement>();
             if (pm.IsMoving) {
-                _computer.States.SetState(EnemyStates.Spotting); 
+                _computer.States.SetState(EnemyStates.Spotting);
             }
         }
     }

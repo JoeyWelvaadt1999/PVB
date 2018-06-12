@@ -6,8 +6,12 @@ using System;
 
 public class SpottingState : State {
     public override void Act()
-    {
-        throw new NotImplementedException();
+
+    { 
+        Collider2D col = Physics2D.OverlapCircle(transform.position, 3.5f, LayerMask.GetMask("Player"));
+        GameObject go = col.gameObject;
+        Destroy(go);
+        StartCoroutine(GoToMenu());
     }
 
     public override void Reason()
@@ -24,4 +28,9 @@ public class SpottingState : State {
 	void Update () {
 		
 	}
+
+    private IEnumerator GoToMenu() {
+        yield return new WaitForSeconds(3f);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+    }
 }
