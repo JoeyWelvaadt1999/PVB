@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class will make sure the camera can follow an object.
+/// </summary>
 public class CameraFollow : MonoBehaviour {
-    [SerializeField] private GameObject _objectToFollow;
-    [SerializeField] private Bounds _cameraBounds;
-	// Use this for initialization
-	void Start () {
-		
-	}
-
-    // Update is called once per frame
+    [SerializeField] private GameObject _objectToFollow; //This variable indicates the object that has to be followed.
+    [SerializeField] private Bounds _cameraBounds;//This variable indicates the maximum and minimum position the camera can move.
+	
+    /// <summary>
+    /// This function moves the camera to the position of the object and keeps it inside the bounds.
+    /// </summary>
     void Update() {
         Vector3 tPos = transform.position;
 

@@ -3,10 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
-{
-    [SerializeField] private float _speed;
+/// <summary>
+/// This class will make the player move
+/// </summary>
+public class PlayerMovement : MonoBehaviour { 
 
+    [SerializeField] private float _speed;//The speed variable indicates how fast the player will move around.
+
+
+    /// <summary>
+    /// In the update function the player is moving left and right by multiplying the input by the speed.
+    /// </summary>
     void Update()
     {
         float x = Input.GetAxis("Horizontal");
